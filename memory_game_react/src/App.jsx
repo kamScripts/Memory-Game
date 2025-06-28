@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
-
+import { useState, useEffect } from 'react';
 import Header from './components/Header';
-import './App.css'
+import './App.css';
+
 
 function App() {
   const [isLoading, setIsLoading]=useState(true);
@@ -76,7 +76,6 @@ function App() {
       }
       setScore(0);
       setMatched([]);
-
     }
   }
   function newGame(){
@@ -89,16 +88,17 @@ function App() {
               key={dog.id}
               src={dog.url}
               alt={dog.id}
-              sizes="(max-width: 600px) 100px, (max-width: 1000px) 150px, 200px"
-              width="200"
-              height="200"
+              
+              width="200px"
+              height="200px"
               onClick={()=>play(dog.id)}
             />
           )
 
   return (
     <div className='container'>
-      <Header score={score} bestScore={bestScore} handleClick={newGame}></Header>
+      <Header score={score} bestScore={bestScore} handleClick={newGame} />
+      
       {isLoading ? (
         <div>Loading <div className='loading'></div></div>
       ) : error ? (

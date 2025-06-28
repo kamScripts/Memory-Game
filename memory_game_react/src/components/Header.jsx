@@ -1,8 +1,10 @@
+import Portal from "./Modal";
 export default function Header({score, bestScore, handleClick}){
 return (
     <header className="head">
         <div className="menu">
-            <button onClick={handleClick}>New Dog Pics</button>
+            <button onClick={handleClick}>New Pack 🐶</button>  
+            <Portal/>
         </div>
         <h1>
             Dogs Memory Game
