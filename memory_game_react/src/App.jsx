@@ -10,11 +10,21 @@ function App() {
   const [score, setScore]=useState(0);
   const [bestScore, setBestScore]=useState(0);
   const [matched, setMatched]=useState([]);
-  const [win, setWin] =useState(false);
-  const [defeat, setDefeat]=useState(false);
+  const [win, setWin]=useState(false);
+
   
+  useEffect(()=>{    
+    fetchDogs();    
+  }, []);
   useEffect(()=>{
-    const url = "https://dog.ceo/api/breeds/image/random/12"
+    if(score==dogs.length && !isLoading ){
+      setWin(true)
+    }
+    setDogs(dogs=>shuffleArray(dogs));   
+
+  }, [matched]);
+
+    const url = "https://dog.ceo/api/breeds/image/random/12";
     const fetchDogs= async ()=>{
       try {
         const response = await fetch(url);
@@ -24,9 +34,7 @@ function App() {
         }
         const data = await response.json();
         const dogsList = createList(data);
-        console.log(dogsList);
-        setDogs(dogsList);  
-        console.log(dogs)      
+        setDogs(dogsList);       
         setIsLoading(false);
         
 
@@ -35,13 +43,6 @@ function App() {
         setIsLoading(false)
     }
     };
-    fetchDogs()
-    
-  }, []);
-  useEffect(()=>{
-    setDogs(shuffleArray(dogs))
-  }, [matched])
-  
 // fisher-yates shuffle algorithm
   function shuffleArray(arr) {
     let copy = [...arr];
@@ -64,9 +65,24 @@ function App() {
   
   return arr
   }
-  function play(id) {
-    setScore(score=>score+1);
+  function play(id) {    
     setMatched(prevMatched=>[...prevMatched, id])
+    const check = matched.find((dog)=>dog===id)
+    if (!check) {
+      setScore(score => score + 1);
+    }else {
+      if (score > bestScore) {
+        setBestScore(score);
+      }
+      setScore(0);
+      setMatched([]);
+
+    }
+  }
+  function newGame(){
+    setWin(false)
+    fetchDogs();
+    setScore(0)
   }
   const gameTiles= dogs.map((dog)=>
             <img
@@ -82,12 +98,19 @@ function App() {
 
   return (
     <div className='container'>
-      <Header score={score} bestScore={bestScore}></Header>
+      <Header score={score} bestScore={bestScore} handleClick={newGame}></Header>
       {isLoading ? (
         <div>Loading <div className='loading'></div></div>
       ) : error ? (
         <div>Error: {error.message}</div>
-      ) : (
+      ) : win ? (
+        <div>
+          <h2>You won!"</h2>
+          <p>You matched all the dogs!</p>
+          <button onClick={newGame}>Play Again</button>
+        </div>
+
+      ): (
         <div className='gameGrid'>
           {gameTiles}
         </div>

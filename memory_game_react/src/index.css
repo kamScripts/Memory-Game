@@ -36,10 +36,8 @@ body {
 
 header {  
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center; 
-  
-  
 }
 
 h1 {
@@ -52,13 +50,12 @@ h1 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
-  
 }
 img {
   margin: 0 auto;
-  
+  border: 2px solid black;
+  border-radius: 5%;    
 }
-
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -77,32 +74,48 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-@media (max-width: 440px) {
+@media (max-width: 440px) {  
   header {
     flex-direction: column;
   }
+  
   h1 {
+    
     font-size: 1.5rem;
   }
   .scores {
     display: flex;
-    gap: .5rem
+    gap: .5rem;
+    position: fixed;
+    bottom: 52px;
+    background-color: #646cff;
+    width: 100%;
+    
   }
   .results {
     font-size: 1.5rem;
-    
+    margin: 10px auto;    
   }
-  #root {
-    
-    margin: 0 auto;
+  .menu {
+    position: fixed;
+    bottom: 0;
+    background-color: #646cff;
+    width: 100%;
+
   }
+  .menu > button {
+    margin: 10px;
+  }
+  
   img {
     width: 150px;
     height: 150px;
+    
   }
   .gameGrid {
     grid-template-columns: 1fr 1fr;
-    gap: .5rem    
+    gap: .5rem;
+
     
   }
 }
@@ -122,5 +135,6 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+    
   }
 }
