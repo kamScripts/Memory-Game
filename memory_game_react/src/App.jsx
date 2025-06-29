@@ -87,8 +87,7 @@ function App() {
             <img
               key={dog.id}
               src={dog.url}
-              alt={dog.id}
-              
+              alt={dog.id}              
               width="200px"
               height="200px"
               onClick={()=>play(dog.id)}
